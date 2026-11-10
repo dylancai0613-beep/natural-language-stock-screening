@@ -1,0 +1,15 @@
+{
+  "template_version": "2.2.0",
+  "metric_id": "net_profit_turnaround_yoy",
+  "label": "净利润同比扭亏",
+  "category": "盈利能力",
+  "metric_file": "../config/metrics/净利润同比扭亏.json",
+  "description": "预写题目：当期单季度净利润转正且去年同期非正；当前无真实数据覆盖。",
+  "question": "截至{as_of}，{report}净利润同比扭亏。",
+  "slot_definitions": {
+    "as_of": {"label":"数据截止日期","kind":"date","required":true,"default":null,"options":[],"help":"未指定时由服务端采用本地快照日期；该数据尚未接入"},
+    "report": {"label":"财务报告期","kind":"report","required":true,"default":null,"options":[],"help":"YYYY-Q1至YYYY-Q4；没有默认值时通过聊天询问"}
+  },
+  "answer": {"active":false,"original_text":"","slots":{"as_of":{"value":null,"source":"unfilled","confirmed":false},"report":{"value":null,"source":"unfilled","confirmed":false}},"validation":false,"validation_errors":[]},
+  "validation_rules": ["扭亏按单季度净利润同比比较","只有已登记题目可以填写","无数据时结果unknown"]
+}

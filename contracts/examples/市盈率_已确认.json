@@ -1,0 +1,35 @@
+{
+  "metric_id": "pe_ttm",
+  "active": true,
+  "original_text": "截至2026年11月6日，找PE低于20倍的股票",
+  "slots": {
+    "operator": {
+      "value": "lt",
+      "source": "user_input",
+      "confirmed": true
+    },
+    "threshold": {
+      "value": 20,
+      "source": "user_input",
+      "confirmed": true
+    },
+    "as_of": {
+      "value": "2026-11-06",
+      "source": "user_input",
+      "confirmed": true
+    },
+    "basis": {
+      "value": "TTM",
+      "source": "default",
+      "confirmed": true
+    }
+  },
+  "validation": true,
+  "validation_errors": [],
+  "data_readiness": {
+    "metric_id": "pe_ttm",
+    "ready": false,
+    "availability": "sample_returned_semantics_unverified",
+    "reason": "数据口径尚未验收，不能执行；无需客户重复填写已有效答案"
+  }
+}

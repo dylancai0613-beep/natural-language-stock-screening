@@ -1,0 +1,67 @@
+{
+  "metric_id": "pe_ttm",
+  "active": true,
+  "original_text": "",
+  "slots": {
+    "operator": {
+      "value": "lt",
+      "source": "default",
+      "confirmed": false
+    },
+    "threshold": {
+      "value": 20,
+      "source": "default",
+      "confirmed": false
+    },
+    "as_of": {
+      "value": null,
+      "source": "unfilled",
+      "confirmed": false
+    },
+    "basis": {
+      "value": "TTM",
+      "source": "default",
+      "confirmed": false
+    }
+  },
+  "validation": false,
+  "validation_errors": [
+    {
+      "slot": "operator",
+      "code": "unconfirmed",
+      "message": "请确认比较关系：\"lt\"",
+      "question": "请确认比较关系：\"lt\"",
+      "options": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ]
+    },
+    {
+      "slot": "threshold",
+      "code": "unconfirmed",
+      "message": "请确认固定阈值：20",
+      "question": "请确认固定阈值：20",
+      "options": []
+    },
+    {
+      "slot": "as_of",
+      "code": "missing",
+      "message": "请填写数据截止日期",
+      "question": "请填写数据截止日期",
+      "options": []
+    },
+    {
+      "slot": "basis",
+      "code": "unconfirmed",
+      "message": "请确认估值口径：\"TTM\"",
+      "question": "请确认估值口径：\"TTM\"",
+      "options": [
+        "TTM"
+      ]
+    }
+  ]
+}

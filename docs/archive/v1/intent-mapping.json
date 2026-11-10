@@ -1,0 +1,36 @@
+{
+  "version": "1.0.0",
+  "rules": [
+    {
+      "phrase": "经营改善",
+      "candidates": [
+        "revenue_yoy_acceleration_pp",
+        "revenue_yoy_pct",
+        "net_profit_yoy_pct"
+      ],
+      "clarification": "关注营收增长加快、营收正增长还是利润增长？这三者含义不同。"
+    },
+    {
+      "phrase": "估值合理",
+      "candidates": [
+        "pe_ttm",
+        "industry_pe_percentile"
+      ],
+      "clarification": "固定PE上限还是与同行比较？负PE不作为便宜。"
+    },
+    {
+      "phrase": "走势稳定",
+      "candidates": [
+        "volatility_60d_annualized_pct",
+        "max_drawdown_60d_pct"
+      ],
+      "clarification": "低波动还是小回撤？观察多久？"
+    }
+  ],
+  "unsupported": [
+    "保证上涨",
+    "零风险",
+    "管理层靠谱（缺少可验证定义）"
+  ],
+  "policy": "只输出注册指标；默认阈值必须标system_default；不可悄悄丢弃不支持意图"
+}

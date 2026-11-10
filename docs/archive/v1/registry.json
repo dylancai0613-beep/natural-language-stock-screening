@@ -1,0 +1,362 @@
+{
+  "version": "1.0.0",
+  "metrics": [
+    {
+      "id": "revenue_yoy_pct",
+      "label": "营业收入同比增长率",
+      "unit": "percent",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "读取供应商报告期指标；数值10表示10%，不可混用单季度和年初累计",
+      "inputs": [
+        {
+          "provider": "fuyao",
+          "endpoint": "/api/a-share/financials/indicators",
+          "field_path": "data.abilities[].indicators[index_id=operating_income_yoy_growth_ratio].value",
+          "normalization": "严格十进制字符串转数值；null保持缺失"
+        }
+      ],
+      "availability": "documented_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero",
+      "required_parameters": [
+        "report"
+      ],
+      "period_basis": "supplier_report_period_must_verify"
+    },
+    {
+      "id": "net_profit_yoy_pct",
+      "label": "净利润同比增长率",
+      "unit": "percent",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "读取供应商报告期指标；数值10表示10%，不可混用单季度和年初累计",
+      "inputs": [
+        {
+          "provider": "fuyao",
+          "endpoint": "/api/a-share/financials/indicators",
+          "field_path": "data.abilities[].indicators[index_id=net_profit_yoy_growth_ratio].value",
+          "normalization": "严格十进制字符串转数值；null保持缺失"
+        }
+      ],
+      "availability": "documented_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero",
+      "required_parameters": [
+        "report"
+      ],
+      "period_basis": "supplier_report_period_must_verify"
+    },
+    {
+      "id": "roe_weighted_pct",
+      "label": "加权净资产收益率",
+      "unit": "percent",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "读取供应商报告期指标；数值10表示10%，不可混用单季度和年初累计",
+      "inputs": [
+        {
+          "provider": "fuyao",
+          "endpoint": "/api/a-share/financials/indicators",
+          "field_path": "data.abilities[].indicators[index_id=index_weighted_avg_roe].value",
+          "normalization": "严格十进制字符串转数值；null保持缺失"
+        }
+      ],
+      "availability": "documented_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero",
+      "required_parameters": [
+        "report"
+      ],
+      "period_basis": "supplier_report_period_must_verify"
+    },
+    {
+      "id": "gross_margin_pct",
+      "label": "销售毛利率",
+      "unit": "percent",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "读取供应商报告期指标；数值10表示10%，不可混用单季度和年初累计",
+      "inputs": [
+        {
+          "provider": "fuyao",
+          "endpoint": "/api/a-share/financials/indicators",
+          "field_path": "data.abilities[].indicators[index_id=sale_gross_margin].value",
+          "normalization": "严格十进制字符串转数值；null保持缺失"
+        }
+      ],
+      "availability": "documented_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero",
+      "required_parameters": [
+        "report"
+      ],
+      "period_basis": "supplier_report_period_must_verify"
+    },
+    {
+      "id": "debt_assets_pct",
+      "label": "资产负债率",
+      "unit": "percent",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "读取供应商报告期指标；数值10表示10%，不可混用单季度和年初累计",
+      "inputs": [
+        {
+          "provider": "fuyao",
+          "endpoint": "/api/a-share/financials/indicators",
+          "field_path": "data.abilities[].indicators[index_id=assets_debt_ratio].value",
+          "normalization": "严格十进制字符串转数值；null保持缺失"
+        }
+      ],
+      "availability": "documented_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero",
+      "required_parameters": [
+        "report"
+      ],
+      "period_basis": "supplier_report_period_must_verify"
+    },
+    {
+      "id": "pe_ttm",
+      "label": "市盈率TTM",
+      "unit": "multiple",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "读取TTM估值；非正值不参与低估值排名",
+      "inputs": [
+        {
+          "provider": "fuyao",
+          "endpoint": "/api/a-share/valuations/snapshot",
+          "field_path": "data.item[].pe_ttm"
+        },
+        {
+          "provider": "ifind",
+          "tool": "get_stock_performance",
+          "field_path": "answer表格:市盈率(PE,TTM)",
+          "normalization": "日期与indicators_params必须一致"
+        }
+      ],
+      "availability": "sample_returned_semantics_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero"
+    },
+    {
+      "id": "market_cap_cny",
+      "label": "总市值",
+      "unit": "CNY",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "供应商总市值转为人民币元",
+      "inputs": [
+        {
+          "provider": "ifind",
+          "tool": "get_stock_performance",
+          "field_path": "answer表格:总市值（单位：元）",
+          "normalization": "万亿×1e12；亿×1e8；万×1e4；不识别单位拒绝"
+        }
+      ],
+      "availability": "sample_returned_semantics_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero"
+    },
+    {
+      "id": "revenue_yoy_acceleration_pp",
+      "label": "单季度营收同比增速改善",
+      "unit": "percentage_point",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "g(q)-g(q-1); g(q)=100*(R(q)/R(q-4)-1); R由同财年累计营业收入差分得到，Q1直接取值；同比基数<=0时unknown",
+      "inputs": [
+        {
+          "provider": "fuyao",
+          "endpoint": "/api/a-share/financials/income-statements",
+          "field_path": "data.item[].operating_income"
+        }
+      ],
+      "availability": "documented_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero",
+      "required_parameters": [
+        "current_quarter"
+      ],
+      "minimum_data": "完整覆盖q、q-1及各自去年同期，必要时跨财年；先确认原字段累计口径",
+      "pit_rule": "report_date_ms<=as_of，缺披露日不得用于历史筛选"
+    },
+    {
+      "id": "volatility_60d_annualized_pct",
+      "label": "60日年化波动率",
+      "unit": "percent",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "100*sample_std(log(Pt/Pt-1),ddof=1)*sqrt(252)",
+      "inputs": [
+        {
+          "provider": "fuyao",
+          "endpoint": "/api/a-share/prices/historical",
+          "field_path": "data.item[].date_ms,close_price",
+          "request": {
+            "interval": "1d",
+            "adjust": "forward"
+          }
+        }
+      ],
+      "availability": "documented_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero",
+      "minimum_data": "61个连续交易日有效正收盘价形成60个收益率；停牌/缺日不补零",
+      "required_parameters": [
+        "window_trading_days",
+        "annualization_days",
+        "adjust"
+      ],
+      "defaults": {
+        "window_trading_days": 60,
+        "annualization_days": 252,
+        "adjust": "forward"
+      }
+    },
+    {
+      "id": "max_drawdown_60d_pct",
+      "label": "60日最大回撤幅度",
+      "unit": "percent",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "100*max(1-Pt/max(P0..Pt))；正数幅度，越小回撤越小",
+      "inputs": [
+        {
+          "provider": "fuyao",
+          "endpoint": "/api/a-share/prices/historical",
+          "field_path": "data.item[].date_ms,close_price",
+          "request": {
+            "interval": "1d",
+            "adjust": "forward"
+          }
+        }
+      ],
+      "availability": "documented_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero",
+      "minimum_data": "60个连续交易日有效正价格",
+      "defaults": {
+        "window_trading_days": 60,
+        "adjust": "forward"
+      }
+    },
+    {
+      "id": "industry_pe_percentile",
+      "label": "行业PE百分位",
+      "unit": "percent",
+      "type": "number",
+      "operators": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "formula": "100*(L+0.5*E)/N；L为严格较低数，E为同值数（含自身）；仅PE>0有效样本",
+      "inputs": [
+        {
+          "metric_id": "pe_ttm"
+        },
+        {
+          "provider": "ifind",
+          "tool": "get_stock_info",
+          "field_path": "answer表格:所属申万行业/所属同花顺行业"
+        }
+      ],
+      "availability": "documented_unverified",
+      "enabled_for_screening": false,
+      "methodology_version": "1.0.0",
+      "missing_policy": "unknown_never_zero",
+      "required_parameters": [
+        "industry_classification",
+        "industry_level",
+        "peer_universe",
+        "minimum_peer_count"
+      ],
+      "minimum_data": "同一时点同一行业分类完整同业数据，默认最少5个有效样本；不得拿候选子集冒充行业总体"
+    }
+  ]
+}

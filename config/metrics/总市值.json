@@ -1,0 +1,29 @@
+{
+  "$comment": "指标字典：定义含义和数据来源，不负责填写客户条件。契约模板见contracts/总市值.json。",
+  "id": "market_cap_cny",
+  "label": "总市值",
+  "unit": "CNY",
+  "type": "number",
+  "operators": [
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+    "eq",
+    "between"
+  ],
+  "formula": "供应商总市值转为人民币元",
+  "inputs": [
+    {
+      "provider": "ifind",
+      "tool": "get_stock_performance",
+      "field_path": "answer表格:总市值（单位：元）",
+      "normalization": "万亿×1e12；亿×1e8；万×1e4；不识别单位拒绝"
+    }
+  ],
+  "availability": "sample_returned_semantics_unverified",
+  "enabled_for_screening": false,
+  "methodology_version": "1.0.0",
+  "missing_policy": "unknown_never_zero",
+  "category": "公司规模"
+}

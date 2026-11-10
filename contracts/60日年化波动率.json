@@ -1,0 +1,115 @@
+{
+  "template_version": "2.1.0",
+  "metric_id": "volatility_60d_annualized_pct",
+  "label": "60日年化波动率",
+  "category": "价格走势",
+  "metric_file": "../config/metrics/60日年化波动率.json",
+  "description": "预先写好的题目。运行时只填answer中的槽位，不让模型发明新卡片或修改题目。",
+  "question": "截至{as_of}，60日年化波动率 {operator} {threshold}。",
+  "slot_definitions": {
+    "operator": {
+      "label": "比较关系",
+      "kind": "choice",
+      "required": true,
+      "default": "lt",
+      "options": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "help": "‘走势相对稳定’的产品默认条件为低于30%；客户可修改"
+    },
+    "threshold": {
+      "label": "固定阈值",
+      "kind": "number_or_range",
+      "required": true,
+      "default": 30,
+      "options": [],
+      "help": "固定默认解释为60日年化波动率低于30%；这是产品默认，可由客户修改。"
+    },
+    "as_of": {
+      "label": "数据截止日期",
+      "kind": "date",
+      "required": true,
+      "default": null,
+      "options": [],
+      "help": "YYYY-MM-DD；不自动填写运行当天，避免将历史需求覆盖"
+    },
+    "window_trading_days": {
+      "label": "观察交易日数",
+      "kind": "integer",
+      "required": true,
+      "default": 60,
+      "options": [],
+      "help": "当前这个指标固定60日，其他窗口需扩展指标"
+    },
+    "adjust": {
+      "label": "复权口径",
+      "kind": "choice",
+      "required": true,
+      "default": "forward",
+      "options": [
+        "forward",
+        "backward",
+        "none"
+      ],
+      "help": ""
+    },
+    "annualization_days": {
+      "label": "年化交易日数",
+      "kind": "integer",
+      "required": true,
+      "default": 252,
+      "options": [],
+      "help": "当前公式固定252"
+    }
+  },
+  "answer": {
+    "active": false,
+    "original_text": "",
+    "slots": {
+      "operator": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "threshold": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "as_of": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "window_trading_days": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "adjust": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "annualization_days": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      }
+    },
+    "validation": false,
+    "validation_errors": []
+  },
+  "validation_rules": [
+    "未选中题目不阻断整张试卷",
+    "默认值来自题目配置并标default；确认前返回给客户",
+    "按槽位类型、选项和条件依赖校验；数值禁止字符串和NaN",
+    "客户回答完成与数据可执行性分别验证；接口失败不能归咎于客户",
+    "固定阈值必填；相对行业需求保留为未映射，不能悄悄替换为数值"
+  ]
+}

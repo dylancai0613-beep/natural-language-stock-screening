@@ -1,0 +1,8 @@
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const root=path.resolve(__dirname,'..');let count=0;
+function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name);if(e.isDirectory())walk(p);else if(p.endsWith('.json')){const o=JSON.parse(fs.readFileSync(p,'utf8'));count++;const visit=x=>{if(!x||typeof x!=='object')return;if(x.$ref&&!x.$ref.startsWith('#'))assert(fs.existsSync(path.resolve(path.dirname(p),x.$ref)),`Missing ${x.$ref}`);for(const v of Object.values(x))visit(v)};visit(o);}}}
+walk(path.join(root,'contracts'));walk(path.join(root,'config'));
+const paper=JSON.parse(fs.readFileSync(path.join(root,'contracts/选股意图试卷.json'),'utf8')),ids=new Set();
+for(const item of paper.questions){assert(!ids.has(item.metric_id));ids.add(item.metric_id);const p=path.resolve(root,'contracts',item.template),t=JSON.parse(fs.readFileSync(p,'utf8')),m=JSON.parse(fs.readFileSync(path.resolve(path.dirname(p),t.metric_file),'utf8'));assert.equal(t.metric_id,m.id);assert.equal(item.metric_id,m.id);assert.equal(path.basename(p),m.label+'.json');assert(m.inputs.length);assert(m.enabled_for_screening===false);assert.equal(t.answer.active,false);assert.equal(t.answer.validation,false);assert.deepEqual(Object.keys(t.slot_definitions).sort(),Object.keys(t.answer.slots).sort());for(const s of Object.values(t.slot_definitions))if(s.kind==='choice'&&s.default!==null)assert(s.options.includes(s.default));}
+assert.equal(fs.readdirSync(path.join(root,'config/metrics')).filter(f=>f.endsWith('.json')).length,ids.size);
+console.log(`PASS: ${count} JSON files; ${ids.size} named metrics and fixed templates; references and defaults checked. Not a JSON Schema instance validation.`);

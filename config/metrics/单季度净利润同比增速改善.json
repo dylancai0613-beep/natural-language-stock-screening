@@ -1,0 +1,26 @@
+{
+  "$comment": "指标字典：定义含义和数据来源，不负责填写客户条件。契约模板见contracts/单季度净利润同比增速改善.json。",
+  "id": "net_profit_yoy_acceleration_pp",
+  "label": "单季度净利润同比增速改善",
+  "unit": "percentage_point",
+  "type": "number",
+  "operators": ["gt", "gte", "lt", "lte", "eq", "between"],
+  "formula": "g(q)-g(q-1); g(q)=100*(N(q)/N(q-4)-1); N为单季度净利润，同比基数<=0或口径不可比时unknown",
+  "default_interpretation": {
+    "source": "default",
+    "trigger_phrases": ["利润增长加快", "净利润增速改善", "利润增速提高"],
+    "operator": "gt",
+    "threshold": 0,
+    "unit": "百分点",
+    "description": "‘利润增长加快’默认解释为单季度净利润同比增速较上季提高0个百分点以上；不同于净利润同比增长率为正。"
+  },
+  "inputs": [{"provider": "fuyao", "endpoint": "/api/a-share/financials/income-statements", "field_path": "data.item[].net_profit"}],
+  "availability": "documented_unverified",
+  "enabled_for_screening": false,
+  "methodology_version": "1.0.0",
+  "missing_policy": "unknown_never_zero",
+  "required_parameters": ["current_quarter"],
+  "minimum_data": "覆盖q、q-1和各自去年同期四个单季净利润；披露日及同比基数核验通过",
+  "pit_rule": "report_date_ms<=as_of；缺披露日或同比基数非正时unknown",
+  "category": "成长"
+}

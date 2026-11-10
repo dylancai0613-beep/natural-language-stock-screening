@@ -1,0 +1,52 @@
+{
+  "$comment": "指标字典：定义含义和数据来源，不负责填写客户条件。契约模板见contracts/60日年化波动率.json。",
+  "id": "volatility_60d_annualized_pct",
+  "label": "60日年化波动率",
+  "unit": "percent",
+  "type": "number",
+  "operators": [
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+    "eq",
+    "between"
+  ],
+  "formula": "100*sample_std(log(Pt/Pt-1),ddof=1)*sqrt(252)",
+  "default_interpretation": {
+    "source": "default",
+    "short_description": "60日年化波动率低于30%",
+    "trigger_phrases": ["走势稳定", "走势相对稳定", "波动较低"],
+    "operator": "lt",
+    "threshold": 30,
+    "unit": "%",
+    "description": "‘走势相对稳定’默认解释为60日年化波动率低于30%；此项当前没有已核验真实数据，结果必须待核验。"
+  },
+  "inputs": [
+    {
+      "provider": "fuyao",
+      "endpoint": "/api/a-share/prices/historical",
+      "field_path": "data.item[].date_ms,close_price",
+      "request": {
+        "interval": "1d",
+        "adjust": "forward"
+      }
+    }
+  ],
+  "availability": "documented_unverified",
+  "enabled_for_screening": false,
+  "methodology_version": "1.0.0",
+  "missing_policy": "unknown_never_zero",
+  "minimum_data": "61个连续交易日有效正收盘价形成60个收益率；停牌/缺日不补零",
+  "required_parameters": [
+    "window_trading_days",
+    "annualization_days",
+    "adjust"
+  ],
+  "defaults": {
+    "window_trading_days": 60,
+    "annualization_days": 252,
+    "adjust": "forward"
+  },
+  "category": "价格走势"
+}

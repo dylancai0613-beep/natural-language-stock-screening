@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>选股助手</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="选股助手首页"><span class="brand-mark">选</span><span>选股助手<small>把想法变成可核验的筛选</small></span></a>
+      <div class="top-status"><span class="status-dot"></span><span id="serviceStatus">正在连接</span><span class="status-divider"></span><span id="dataStatus">数据状态读取中</span></div>
+    </header>
+    <main class="workspace" aria-label="选股助手工作区">
+      <section class="panel chat-panel" aria-label="筛选对话">
+        <div class="panel-head">
+          <div><p class="eyebrow">筛选想法</p><h1>聊聊你想找什么股票</h1></div>
+          <button class="text-button" id="newChatButton" type="button">新对话</button>
+        </div>
+        <div class="coverage-banner"><span class="info-mark" aria-hidden="true">i</span><span><strong id="coverageTitle">本地数据范围</strong><span id="coverageText">仅用于验证，不代表全市场。</span></span></div>
+        <div id="conversation" class="conversation" role="log" aria-live="polite" aria-relevant="additions text"></div>
+        <div class="suggestions" id="suggestions" aria-label="试试这样描述">
+          <span>试试这样描述</span>
+          <button type="button" data-suggestion="请查找经营改善、估值合理、走势相对稳定的股票">经营改善、估值合理、走势相对稳定</button>
+          <button type="button" data-suggestion="找市盈率低于20倍的股票">市盈率低于20倍</button>
+        </div>
+        <form id="messageForm" class="composer">
+          <label class="sr-only" for="messageInput">描述筛选想法或回答追问</label>
+          <textarea id="messageInput" rows="2" maxlength="2000" placeholder="描述筛选想法，或回答助手的追问…"></textarea>
+          <button class="send-button" id="sendButton" type="submit" aria-label="发送消息" title="发送消息"><span aria-hidden="true">↑</span></button>
+        </form>
+        <div class="composer-note"><span>Enter 发送 · Shift+Enter 换行</span></div>
+      </section>
+
+      <section class="panel results-panel" aria-label="筛选结果和证据">
+        <div class="panel-head results-head"><div><p class="eyebrow">筛选结果</p><h2>股票与条件证据</h2></div><span class="result-scope" id="resultScope">确认条件后执行</span></div>
+        <div id="resultSummary" class="result-summary"><div class="result-placeholder"><span class="placeholder-mark" aria-hidden="true">✳</span><strong>结果会显示在这里</strong><span>你确认条件后，助手才会运行筛选。</span></div></div>
+        <div class="results-table-wrap">
+          <table class="results-table"><thead><tr><th scope="col">股票</th><th scope="col">结果</th><th scope="col">条件</th><th scope="col">证据</th></tr></thead><tbody id="resultsBody"><tr class="table-empty"><td colspan="4">等待你描述筛选想法</td></tr></tbody></table>
+        </div>
+        <div class="panel-foot"><span class="foot-mark" aria-hidden="true">✓</span><span>没有数据、日期不匹配或口径未核验时会显示“待核验”，不会编造结果。</span></div>
+      </section>
+    </main>
+    <footer class="page-footer"><span>本地验证样本不代表全A股。当前仅有2026-11-09三只样本的PE TTM和总市值数据。</span><span>服务仅在本机运行</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

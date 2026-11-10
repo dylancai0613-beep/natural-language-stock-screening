@@ -1,0 +1,148 @@
+{
+  "template_version": "2.0.0",
+  "metric_id": "industry_pe_percentile",
+  "label": "行业市盈率百分位",
+  "category": "估值",
+  "metric_file": "../config/metrics/行业市盈率百分位.json",
+  "description": "预先写好的题目。运行时只填answer中的槽位，不让模型发明新卡片或修改题目。",
+  "question": "截至{as_of}，行业市盈率百分位 {operator} {benchmark_type}/{threshold}。",
+  "slot_definitions": {
+    "operator": {
+      "label": "比较关系",
+      "kind": "choice",
+      "required": true,
+      "default": null,
+      "options": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "help": "由客户表达决定；不默认为低于或高于"
+    },
+    "benchmark_type": {
+      "label": "比较对象类型",
+      "kind": "choice",
+      "required": true,
+      "default": "fixed",
+      "options": [
+        "fixed"
+      ],
+      "help": "行业比较需要同口径同行数据；平均值与中位数不混用"
+    },
+    "threshold": {
+      "label": "固定阈值",
+      "kind": "number_or_range",
+      "required": false,
+      "default": null,
+      "options": [],
+      "help": "benchmark_type=fixed时必填；between填写两个从小到大的数"
+    },
+    "as_of": {
+      "label": "数据截止日期",
+      "kind": "date",
+      "required": true,
+      "default": null,
+      "options": [],
+      "help": "YYYY-MM-DD；不自动填写运行当天，避免将历史需求覆盖"
+    },
+    "industry_classification": {
+      "label": "行业分类体系",
+      "kind": "choice",
+      "required": true,
+      "default": "申万",
+      "options": [
+        "申万",
+        "同花顺"
+      ],
+      "help": ""
+    },
+    "industry_level": {
+      "label": "行业级别",
+      "kind": "choice",
+      "required": true,
+      "default": "一级",
+      "options": [
+        "一级",
+        "二级",
+        "三级"
+      ],
+      "help": ""
+    },
+    "minimum_peer_count": {
+      "label": "最少有效同行样本数",
+      "kind": "integer",
+      "required": true,
+      "default": 5,
+      "options": [],
+      "help": "行业比较时至少2；样本不足属于数据问题，不要求客户编造数据"
+    },
+    "peer_universe": {
+      "label": "行业样本范围",
+      "kind": "choice",
+      "required": true,
+      "default": "all_industry_members",
+      "options": [
+        "all_industry_members"
+      ],
+      "help": "不能将候选股票子集当作完整行业"
+    }
+  },
+  "answer": {
+    "active": false,
+    "original_text": "",
+    "slots": {
+      "operator": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "benchmark_type": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "threshold": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "as_of": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "industry_classification": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "industry_level": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "minimum_peer_count": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "peer_universe": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      }
+    },
+    "validation": false,
+    "validation_errors": []
+  },
+  "validation_rules": [
+    "未选中题目不阻断整张试卷",
+    "默认值来自题目配置并标default；确认前返回给客户",
+    "按槽位类型、选项和条件依赖校验；数值禁止字符串和NaN",
+    "行业平均比较不能使用between，固定阈值不能带行业比较语义",
+    "客户回答完成与数据可执行性分别验证；接口失败不能归咎于客户"
+  ]
+}

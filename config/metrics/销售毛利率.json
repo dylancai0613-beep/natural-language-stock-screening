@@ -1,0 +1,33 @@
+{
+  "$comment": "指标字典：定义含义和数据来源，不负责填写客户条件。契约模板见contracts/销售毛利率.json。",
+  "id": "gross_margin_pct",
+  "label": "销售毛利率",
+  "unit": "percent",
+  "type": "number",
+  "operators": [
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+    "eq",
+    "between"
+  ],
+  "formula": "读取供应商报告期指标；数值10表示10%，不可混用单季度和年初累计",
+  "inputs": [
+    {
+      "provider": "fuyao",
+      "endpoint": "/api/a-share/financials/indicators",
+      "field_path": "data.abilities[].indicators[index_id=sale_gross_margin].value",
+      "normalization": "严格十进制字符串转数值；null保持缺失"
+    }
+  ],
+  "availability": "documented_unverified",
+  "enabled_for_screening": false,
+  "methodology_version": "1.0.0",
+  "missing_policy": "unknown_never_zero",
+  "required_parameters": [
+    "report"
+  ],
+  "period_basis": "supplier_report_period_must_verify",
+  "category": "盈利能力"
+}

@@ -1,0 +1,23 @@
+{
+  "$comment": "指标字典：定义含义和数据来源，不负责填写客户条件。契约模板见contracts/净利润同比扭亏.json。",
+  "id": "net_profit_turnaround_yoy",
+  "label": "净利润同比扭亏",
+  "unit": "boolean",
+  "type": "boolean",
+  "operators": ["eq"],
+  "formula": "当期单季度净利润>0且去年同期净利润<=0时为真；口径或同比基数缺失时unknown",
+  "default_interpretation": {
+    "source": "default",
+    "trigger_phrases": ["扭亏", "扭亏为盈", "由亏转盈"],
+    "description": "‘扭亏’默认按同一报告季度相比去年同期判断：当期净利润转正且去年同期非正。"
+  },
+  "inputs": [{"provider": "fuyao", "endpoint": "/api/a-share/financials/income-statements", "field_path": "data.item[].net_profit"}],
+  "availability": "documented_unverified",
+  "enabled_for_screening": false,
+  "methodology_version": "1.0.0",
+  "missing_policy": "unknown_never_zero",
+  "required_parameters": ["report"],
+  "minimum_data": "当期和去年同期单季度净利润及报告披露日均可核验",
+  "pit_rule": "report_date_ms<=as_of；缺披露日或比较口径不一致时unknown",
+  "category": "盈利能力"
+}

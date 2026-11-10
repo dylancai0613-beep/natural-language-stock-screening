@@ -1,0 +1,18 @@
+{
+  "template_version": "2.2.0",
+  "metric_id": "net_profit_yoy_acceleration_pp",
+  "label": "单季度净利润同比增速改善",
+  "category": "成长",
+  "metric_file": "../config/metrics/单季度净利润同比增速改善.json",
+  "description": "预写题目；利润增速加快不同于同比增长为正，当前无真实数据覆盖。",
+  "question": "截至{as_of}，{current_quarter}单季度净利润同比增速较上一季度提高 {operator} {threshold} 个百分点。",
+  "slot_definitions": {
+    "operator": {"label":"比较关系","kind":"choice","required":true,"default":"gt","options":["gt","gte","lt","lte","eq","between"],"help":"产品默认要求同比增速环比提高"},
+    "threshold": {"label":"增速变化","kind":"number_or_range","required":true,"default":0,"options":[],"help":"单位为百分点；产品默认0，可由客户修改"},
+    "as_of": {"label":"数据截止日期","kind":"date","required":true,"default":null,"options":[],"help":"未指定时由服务端采用本地快照日期；该数据尚未接入"},
+    "report": {"label":"财务报告期","kind":"report","required":true,"default":null,"options":[],"help":"YYYY-Q1至YYYY-Q4；没有默认值时通过聊天询问"},
+    "current_quarter": {"label":"当前比较季度","kind":"report","required":true,"default":null,"options":[],"help":"与report必须一致"}
+  },
+  "answer": {"active":false,"original_text":"","slots":{"operator":{"value":null,"source":"unfilled","confirmed":false},"threshold":{"value":null,"source":"unfilled","confirmed":false},"as_of":{"value":null,"source":"unfilled","confirmed":false},"report":{"value":null,"source":"unfilled","confirmed":false},"current_quarter":{"value":null,"source":"unfilled","confirmed":false}},"validation":false,"validation_errors":[]},
+  "validation_rules": ["只有已登记题目可以填写","默认阈值来自配置并标source=default","同一季度关系由服务端校验","无数据时结果unknown"]
+}

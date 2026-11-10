@@ -1,0 +1,43 @@
+{
+  "$comment": "指标字典：定义含义和数据来源，不负责填写客户条件。契约模板见contracts/市盈率.json。",
+  "id": "pe_ttm",
+  "label": "市盈率",
+  "unit": "multiple",
+  "type": "number",
+  "operators": [
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+    "eq",
+    "between"
+  ],
+  "formula": "读取TTM估值；非正值不参与低估值排名",
+  "default_interpretation": {
+    "source": "default",
+    "trigger_phrases": ["估值合理", "估值适中"],
+    "operator": "lt",
+    "threshold": 20,
+    "unit": "倍",
+    "basis": "TTM",
+    "description": "‘估值合理’默认解释为市盈率TTM低于20倍；这是可修改的产品默认，不是客户原话中的数值。"
+  },
+  "inputs": [
+    {
+      "provider": "fuyao",
+      "endpoint": "/api/a-share/valuations/snapshot",
+      "field_path": "data.item[].pe_ttm"
+    },
+    {
+      "provider": "ifind",
+      "tool": "get_stock_performance",
+      "field_path": "answer表格:市盈率(PE,TTM)",
+      "normalization": "日期与indicators_params必须一致"
+    }
+  ],
+  "availability": "sample_returned_semantics_unverified",
+  "enabled_for_screening": false,
+  "methodology_version": "1.0.0",
+  "missing_policy": "unknown_never_zero",
+  "category": "估值"
+}

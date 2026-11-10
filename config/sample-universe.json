@@ -1,0 +1,10 @@
+{
+  "id": "acceptance_sample_3",
+  "label": "固定验收样本（3只）",
+  "coverage_note": "仅含3只iFinD已返回的验收股票，不代表全A股，也不作代表性抽样。",
+  "symbols": [
+    { "thscode": "600519.SH", "name": "贵州茅台" },
+    { "thscode": "000001.SZ", "name": "平安银行" },
+    { "thscode": "600036.SH", "name": "招商银行" }
+  ]
+}

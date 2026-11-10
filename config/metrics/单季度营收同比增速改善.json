@@ -1,0 +1,42 @@
+{
+  "$comment": "指标字典：定义含义和数据来源，不负责填写客户条件。契约模板见contracts/单季度营收同比增速改善.json。",
+  "id": "revenue_yoy_acceleration_pp",
+  "label": "单季度营收同比增速改善",
+  "unit": "percentage_point",
+  "type": "number",
+  "operators": [
+    "gt",
+    "gte",
+    "lt",
+    "lte",
+    "eq",
+    "between"
+  ],
+  "formula": "g(q)-g(q-1); g(q)=100*(R(q)/R(q-4)-1); R由同财年累计营业收入差分得到，Q1直接取值；同比基数<=0时unknown",
+  "default_interpretation": {
+    "source": "default",
+    "short_description": "单季度营收同比增速较上季提高",
+    "trigger_phrases": ["经营改善", "经营向好", "营收改善"],
+    "operator": "gt",
+    "threshold": 0,
+    "unit": "百分点",
+    "description": "‘经营改善’默认解释为单季度营收同比增速较上季提高0个百分点以上；比较相邻季度增速可区分增长与恶化。此项当前没有已核验真实数据，结果必须待核验。"
+  },
+  "inputs": [
+    {
+      "provider": "fuyao",
+      "endpoint": "/api/a-share/financials/income-statements",
+      "field_path": "data.item[].operating_income"
+    }
+  ],
+  "availability": "documented_unverified",
+  "enabled_for_screening": false,
+  "methodology_version": "1.0.0",
+  "missing_policy": "unknown_never_zero",
+  "required_parameters": [
+    "current_quarter"
+  ],
+  "minimum_data": "完整覆盖q、q-1及各自去年同期，必要时跨财年；先确认原字段累计口径",
+  "pit_rule": "report_date_ms<=as_of，缺披露日不得用于历史筛选",
+  "category": "成长"
+}

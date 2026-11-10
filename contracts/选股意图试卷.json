@@ -1,0 +1,100 @@
+{
+  "template_version": "2.1.0",
+  "description": "固定试卷：按客户输入勾选题目并填槽；未选中的题目不必作答。",
+  "context": {
+    "universe": {
+      "value": null,
+      "source": "unfilled",
+      "confirmed": false
+    },
+    "combination": {
+      "value": "all",
+      "source": "default",
+      "confirmed": false
+    }
+  },
+  "questions": [
+    {
+      "metric_id": "revenue_yoy_pct",
+      "label": "营业收入同比增长率",
+      "category": "成长",
+      "template": "./营业收入同比增长率.json"
+    },
+    {
+      "metric_id": "net_profit_yoy_pct",
+      "label": "净利润同比增长率",
+      "category": "成长",
+      "template": "./净利润同比增长率.json"
+    },
+    {
+      "metric_id": "net_profit_yoy_acceleration_pp",
+      "label": "单季度净利润同比增速改善",
+      "category": "成长",
+      "template": "./单季度净利润同比增速改善.json"
+    },
+    {
+      "metric_id": "net_profit_turnaround_yoy",
+      "label": "净利润同比扭亏",
+      "category": "盈利能力",
+      "template": "./净利润同比扭亏.json"
+    },
+    {
+      "metric_id": "roe_weighted_pct",
+      "label": "加权净资产收益率",
+      "category": "盈利能力",
+      "template": "./加权净资产收益率.json"
+    },
+    {
+      "metric_id": "gross_margin_pct",
+      "label": "销售毛利率",
+      "category": "盈利能力",
+      "template": "./销售毛利率.json"
+    },
+    {
+      "metric_id": "debt_assets_pct",
+      "label": "资产负债率",
+      "category": "财务风险",
+      "template": "./资产负债率.json"
+    },
+    {
+      "metric_id": "pe_ttm",
+      "label": "市盈率",
+      "category": "估值",
+      "template": "./市盈率.json"
+    },
+    {
+      "metric_id": "market_cap_cny",
+      "label": "总市值",
+      "category": "公司规模",
+      "template": "./总市值.json"
+    },
+    {
+      "metric_id": "revenue_yoy_acceleration_pp",
+      "label": "单季度营收同比增速改善",
+      "category": "成长",
+      "template": "./单季度营收同比增速改善.json"
+    },
+    {
+      "metric_id": "volatility_60d_annualized_pct",
+      "label": "60日年化波动率",
+      "category": "价格走势",
+      "template": "./60日年化波动率.json"
+    },
+    {
+      "metric_id": "max_drawdown_60d_pct",
+      "label": "60日最大回撤幅度",
+      "category": "价格走势",
+      "template": "./60日最大回撤幅度.json"
+    }
+  ],
+  "validation": false,
+  "validation_errors": [],
+  "unmapped_inputs": [],
+  "policy": {
+    "ai": "只能选择已有题目、填answer和context，不得修改slot_definitions及指标文件",
+    "defaults": "只应用预写默认值；缺失没有默认值时追问；默认值统一确认",
+    "unmapped": "无法映射的客户需求保留并询问，不静默舍弃",
+    "readiness": "validation通过只代表意图完整；数据可执行检查另行进行",
+    "comparison": "第一版仅固定阈值或数值区间；不支持行业平均、中位数、百分位及历史相对比较。原话涉及这些要求时保留为未映射并请客户改填明确数值。"
+  }
+}

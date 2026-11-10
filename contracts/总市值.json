@@ -1,0 +1,72 @@
+{
+  "template_version": "2.1.0",
+  "metric_id": "market_cap_cny",
+  "label": "总市值",
+  "category": "公司规模",
+  "metric_file": "../config/metrics/总市值.json",
+  "description": "预先写好的题目。运行时只填answer中的槽位，不让模型发明新卡片或修改题目。",
+  "question": "截至{as_of}，总市值 {operator} {threshold}。",
+  "slot_definitions": {
+    "operator": {
+      "label": "比较关系",
+      "kind": "choice",
+      "required": true,
+      "default": null,
+      "options": [
+        "gt",
+        "gte",
+        "lt",
+        "lte",
+        "eq",
+        "between"
+      ],
+      "help": "由客户表达决定；不默认为低于或高于"
+    },
+    "threshold": {
+      "label": "固定阈值",
+      "kind": "number_or_range",
+      "required": true,
+      "default": null,
+      "options": [],
+      "help": "只支持固定数值；between时填写两个从小到大的数，单位见同名metrics。没有默认阈值，不得擅自填入。"
+    },
+    "as_of": {
+      "label": "数据截止日期",
+      "kind": "date",
+      "required": true,
+      "default": null,
+      "options": [],
+      "help": "YYYY-MM-DD；不自动填写运行当天，避免将历史需求覆盖"
+    }
+  },
+  "answer": {
+    "active": false,
+    "original_text": "",
+    "slots": {
+      "operator": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "threshold": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      },
+      "as_of": {
+        "value": null,
+        "source": "unfilled",
+        "confirmed": false
+      }
+    },
+    "validation": false,
+    "validation_errors": []
+  },
+  "validation_rules": [
+    "未选中题目不阻断整张试卷",
+    "默认值来自题目配置并标default；确认前返回给客户",
+    "按槽位类型、选项和条件依赖校验；数值禁止字符串和NaN",
+    "客户回答完成与数据可执行性分别验证；接口失败不能归咎于客户",
+    "固定阈值必填；相对行业需求保留为未映射，不能悄悄替换为数值"
+  ]
+}
